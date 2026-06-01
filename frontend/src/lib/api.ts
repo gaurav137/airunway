@@ -785,3 +785,60 @@ export const gatewayApi = {
   /** List all models accessible through the gateway */
   getModels: () => request<{ models: GatewayModelInfo[] }>('/gateway/models'),
 };
+
+// ============================================================================
+// Optimus SKU Recommendation API
+// ============================================================================
+
+export interface OptimusRankedOption {
+  vmSize: string;
+  gpuCount: number;
+  gpuModel: string;
+  vramPerGpuGb: number;
+  totalVramGb: number;
+  nodesRequired: number;
+  score: number;
+  onDemandPerHour: number;
+  spotPerHour: number;
+  totalCostPerHour: number;
+  monthlyCostEstimate: number;
+  docsUrl: string;
+}
+
+export interface OptimusTraceEntry {
+  stage: string;
+  decision: string;
+  reasoning: string;
+  dataUsed?: Record<string, unknown>;
+}
+
+export interface OptimusRecommendation {
+  rankedOptions: OptimusRankedOption[];
+  vramAnalysis?: {
+    weightsGb: number;
+    kvCachePerRequestGb: number;
+    kvCacheTotalGb: number;
+    overheadGb: number;
+    totalGb: number;
+  };
+  trace?: { entries: OptimusTraceEntry[] };
+}
+
+export interface OptimusRecommendSkuRequest {
+  modelId: string;
+  parameterCount?: number | null;
+  precision?: string;
+  concurrency?: number;
+  region?: string;
+  maxBudgetPerHour?: number | null;
+  priority?: string;
+  strategy: 'deterministic';
+}
+
+export const optimusApi = {
+  recommendSku: (input: OptimusRecommendSkuRequest) =>
+    request<OptimusRecommendation>('/optimus/recommend-sku', {
+      method: 'POST',
+      body: JSON.stringify(input),
+    }),
+};

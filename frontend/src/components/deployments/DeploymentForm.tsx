@@ -1825,6 +1825,8 @@ export function DeploymentForm({ model, detailedCapacity, autoscaler, runtimes }
             replicas={config.replicas}
             gpusPerReplica={config.resources?.gpu || gpuRecommendation.recommendedGpus || 1}
             multiNode={currentMultiNode}
+            modelId={model.id}
+            parameterCount={model.parameterCount ?? model.parameters}
           />
         )}
 
