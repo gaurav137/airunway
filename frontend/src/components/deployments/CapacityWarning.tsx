@@ -60,7 +60,7 @@ function SkuOptionDetail({ opt }: { opt: OptimusRankedOption }) {
         <div className="mt-2 space-y-1 border-t border-blue-200 pt-2 text-gray-700 dark:border-blue-700 dark:text-gray-300">
           <div className="grid grid-cols-2 gap-x-4 gap-y-1">
             <span>VRAM per GPU</span>
-            <span className="font-medium">{opt.vramPerGpuGb} GB</span>
+            <span className="font-medium">{opt.vramGbPerGpu} GB</span>
             <span>On-demand</span>
             <span className="font-medium">{fmt(opt.onDemandPerHour)}/hr</span>
             <span>Spot</span>

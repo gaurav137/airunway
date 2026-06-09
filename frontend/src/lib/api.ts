@@ -794,7 +794,7 @@ export interface OptimusRankedOption {
   vmSize: string;
   gpuCount: number;
   gpuModel: string;
-  vramPerGpuGb: number;
+  vramGbPerGpu: number;
   totalVramGb: number;
   nodesRequired: number;
   score: number;
